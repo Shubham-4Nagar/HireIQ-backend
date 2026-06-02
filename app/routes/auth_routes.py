@@ -6,6 +6,7 @@ from app.models.user_model import User
 from app.schemas.user_schema import CreateUser, UserLogin
 from app.auth.hash_password import hash_password, verify_password
 from app.auth.jwt_handler import create_access_token
+from app.auth.oauth2 import get_current_user
 
 router = APIRouter()
 
@@ -39,6 +40,7 @@ def register_user(
 
     return{"message": "User Registered Successfully"}
 
+# Logging in The User 
 @router.post("/login")
 def login_user(
     user: UserLogin,
@@ -74,5 +76,17 @@ def login_user(
     return {
         "access_token": access_token,
         "token_type": "bearer"
+    }
+
+# Info for the Current User
+@router.get("/profile")
+def get_profile(
+    current_user: User = Depends(get_current_user)
+):
+    
+    return {
+        "user_id": str(current_user.user_id),
+        "username": str(current_user.username),
+        "email": str(current_user.email)
     }
     
