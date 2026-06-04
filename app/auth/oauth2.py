@@ -46,7 +46,7 @@ def get_current_user(
         ).first()
     if current_user is None:
         raise HTTPException(
-            status=status.HTTP_404_NOT_FOUND,
+            status_code=status.HTTP_404_NOT_FOUND,
             detail="User not found"
         )
     
