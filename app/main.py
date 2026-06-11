@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.database.database import engine
 from app.database.database import Base
@@ -14,6 +15,14 @@ from app.routes.ai_routes import router as ai_router
 from app.routes.job_application_routes import router as job_router
 
 app = FastAPI()
+
+#CORS Middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 Base.metadata.create_all(bind=engine)
 
