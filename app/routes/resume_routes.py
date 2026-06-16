@@ -68,5 +68,6 @@ async def upload_and_analyze(
     return{
         "filename": resume.filename,
         "User": current_user.email,
-        "analysis": analysis
+        "analysis": analysis,
+        "extracted_text": extracted_text
     }
